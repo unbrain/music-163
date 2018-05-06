@@ -1,0 +1,90 @@
+*{margin: 0;    padding: 0;}
+*{box-sizing: border-box;}
+*::before{box-sizing: border-box;}
+*::after{box-sizing: border-box;}
+ol, li{list-style: none;}
+body{
+    background: #16181C;
+    color: #C1C2C9;
+    line-height: 1.5;
+    font-size: 16px;
+}
+button{
+    padding: .5em 1.5em;
+    border: transparent;
+    border-radius: .3em;
+    color: #C1C2C9;
+    cursor: pointer;
+}
+
+/* Layout */
+
+.page{height: 100vh;display: flex;}
+.page aside{
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+}
+
+.page > aside > .newSong{
+    margin: 1em;
+    font-size: 2em;
+    text-align: center;
+}
+.page > aside > .songList{
+    border-top: 3px solid #23262C;
+    flex-grow: 1;
+}
+.page > aside > .songList > li{
+    padding: .5em 1em;
+    background: #16181C;
+}
+.page > aside > .songList > li:nth-child(2n){
+    background: #1B1D20;
+}
+.page > aside > .songList > li:hover{
+    background: #2E3033;
+}
+.page > aside > .upArea{
+}
+.page > aside > .upArea > .draggable {
+    border-radius: .3em;
+    border: 2px dashed #eee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 1em;
+}
+.draggable > button {
+    background: #26282C;
+    border: transparent;
+    margin: 1em auto;
+}
+
+.page main{
+    flex-grow: 1;
+    border-left: 3px solid #23262C;
+}
+.page main .songEditTitle{
+    font-size: 2em;
+    margin: 1em;
+    padding: 0 .5em;
+    border-bottom: 2px solid #23262C;
+}
+.page main .row{
+    margin: 1em;
+    padding: 0 2em;
+}
+.page main .row input{
+    background: #26282C;
+    border: transparent;
+    height: 2em;
+    color: #C1C2C9;
+    margin-left: 2em;
+    padding: 0 .5em;
+}
+.page main .row button{
+    background: #2E4E7E;
+    margin-top: 2em;
+}

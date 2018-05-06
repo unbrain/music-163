@@ -5,29 +5,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
+    <link rel="stylesheet" href="./css/default.css">
     <title>管理页面</title>
-    <style>
-        div {
-            border-radius: 1em;
-            border: 2px dashed #eee;
-            display: flex;
-            justify-content: center;
-            align-items: center
-        }
-        button {
-            margin: 2em auto;
-        }
-    </style>
 </head>
 
 <body>
-
-    <div id="container">
-        <button id="up">
-            上传或拖曳文件
-        </button>
+    <div class="page">
+        <aside>
+            <div class="newSong">新建歌曲</div>
+            <ul class="songList">
+                <li>歌曲1</li>
+                <li>歌曲1</li>
+                <li>歌曲1</li>
+                <li>歌曲1</li>
+                <li>歌曲1</li>
+                <li>歌曲1</li>
+            </ul>
+            <div class="upArea">
+                <div id="container" class="draggable">
+                    <button id="up" class="clickable">
+                        上传或拖曳文件
+                    </button>
+                    <p>大小控制在 20 M</p>
+                    <p id="upText">...</p>
+                </div>
+            </div>
+        </aside>
+        <main>
+            <form action="">
+                <div class="songEditTitle">编辑歌曲信息</div>
+                <div class="row">
+                    <label for="">歌名:
+                        <input type="text">
+                    </label>
+                </div>
+                <div class="row">
+                    <label for="">歌手:
+                        <input type="text">
+                    </label>
+                </div>
+                <div class="row">
+                    <label for="">外链:
+                        <input type="text">
+                    </label>
+                </div>
+                <div class="row">
+                    <button type="submit">保存</button>
+                </div>
+            </form>
+        </main>
     </div>
+
 
     <script src="../node_modules/plupload/src/moxie/bin/js/moxie.js"></script>
     <script src="../node_modules/plupload/src/plupload.js"></script>
@@ -59,7 +87,7 @@
             // 切如果提供了多个，其优先级为 uptoken > uptoken_url > uptoken_func
             // 其中 uptoken 是直接提供上传凭证，uptoken_url 是提供了获取上传凭证的地址，如果需要定制获取 uptoken 的过程则可以设置 uptoken_func
             // uptoken : '<Your upload token>', // uptoken 是上传凭证，由其他程序生成
-            uptoken_url: 'http://localhost:8080/uptoken',         // Ajax 请求 uptoken 的 Url，**强烈建议设置**（服务端提供）
+            uptoken_url: 'http://localhost:8888/uptoken',         // Ajax 请求 uptoken 的 Url，**强烈建议设置**（服务端提供）
             // uptoken_func: function(file){    // 在需要获取 uptoken 时，该方法会被调用
             //    // do something
             //    return uptoken;
@@ -69,7 +97,7 @@
             // Ajax请求downToken的Url，私有空间时使用,JS-SDK 将向该地址POST文件的key和domain,服务端返回的JSON必须包含`url`字段，`url`值为该文件的下载地址
             // unique_names: true,              // 默认 false，key 为文件名。若开启该选项，JS-SDK 会为每个文件自动生成key（文件名）
             // save_key: true,                  // 默认 false。若在服务端生成 uptoken 的上传策略中指定了 `save_key`，则开启，SDK在前端将不对key进行任何处理
-            domain: 'http://qiniu-plupload.qiniudn.com/',     // bucket 域名，下载资源时用到，如：'http://xxx.bkt.clouddn.com/' **必需**
+            domain: 'http://p86y5hc6k.bkt.clouddn.com/',     // bucket 域名，下载资源时用到，如：'http://xxx.bkt.clouddn.com/' **必需**
             container: 'container',             // 上传区域 DOM ID，默认是 browser_button 的父元素，
             max_file_size: '20mb',             // 最大文件体积限制
             //flash_swf_url: 'path/of/plupload/Moxie.swf',  //引入 flash,相对路径
@@ -102,6 +130,7 @@
                 },
                 'UploadProgress': function (up, file) {
                     // 每个文件上传时,处理相关的事情
+                    upText.textContent = '...ing...'
                 },
                 'FileUploaded': function (up, file, info) {
                     // 每个文件上传成功后,处理相关的事情
@@ -112,15 +141,20 @@
                     //  }
                     // 参考http://developer.qiniu.com/docs/v6/api/overview/up/response/simple-response.html
 
-                    // var domain = up.getOption('domain');
-                    // var res = parseJSON(info.response);
-                    // var sourceLink = domain + res.key; 获取上传成功后的文件的Url
+                    var domain = up.getOption('domain');
+                    var res = JSON.parse(info.response);
+                    var sourceLink = domain + encodeURIComponent(res.key);
+                    console.log(sourceLink)
                 },
                 'Error': function (up, err, errTip) {
                     //上传出错时,处理相关的事情
                 },
                 'UploadComplete': function () {
                     //队列文件处理完毕后,处理相关的事情
+                    upText.textContent = 'success'
+                    setTimeout(() => {
+                        upText.textContent = '...'
+                    }, 3000);
                 },
                 // 'Key': function (up, file) {
                 //     // 若想在前端对每个文件的key进行个性化处理，可以配置该函数
