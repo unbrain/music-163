@@ -31,25 +31,29 @@ button{
     font-size: 2em;
     text-align: center;
 }
-.page > aside > .songList{
-    border-top: 3px solid #23262C;
+.page > aside > .songList-container{
     flex-grow: 1;
 }
-.page > aside > .songList > li{
+.page > aside > .songList-container > .songList{
+    border-top: 3px solid #23262C;
+    
+}
+.page > aside > .songList-container > .songList > li{
     padding: .5em 1em;
     background: #16181C;
 }
-.page > aside > .songList > li:nth-child(2n){
+.page > aside > .songList-container > .songList > li:nth-child(2n){
     background: #1B1D20;
 }
-.page > aside > .songList > li:hover{
+.page > aside > .songList-container > .songList > li:hover{
     background: #2E3033;
 }
 .page > aside > .upArea{
+    padding: .5em;
 }
 .page > aside > .upArea > .draggable {
     border-radius: .3em;
-    border: 2px dashed #eee;
+    border: 2px dashed #2E3033;
     display: flex;
     justify-content: center;
     align-items: center;
