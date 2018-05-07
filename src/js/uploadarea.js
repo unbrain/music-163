@@ -94,7 +94,10 @@
                         var domain = up.getOption('domain');
                         var res = JSON.parse(info.response);
                         var sourceLink = domain + encodeURIComponent(res.key);
-                        console.log(sourceLink)
+                        window.eventHub.emit('upload', {
+                            link: sourceLink,
+                            key: res.key,
+                        })
                     },
                     'Error': function (up, err, errTip) {
                         //上传出错时,处理相关的事情

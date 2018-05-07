@@ -12,6 +12,10 @@
             this.view = view
             this.moudle =moudle
             this.view.render(this.moudle.data)
+            window.eventHub.on('upload', (data)=>{
+                console.log('new song')
+                console.log(data)
+            })
         }
     }
     controller.init(view, moudle)
