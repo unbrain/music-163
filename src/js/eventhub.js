@@ -17,3 +17,4 @@ window.eventHub = {
         this.events[eventName].push(fn)
     },
 }
+
