@@ -33,6 +33,9 @@
         },
         init() {
             this.$el = $(this.el)
+        },
+        reset(){
+            this.render({})
         }
     }
     let moudle = {
@@ -49,9 +52,9 @@
             Song.set('singer', data.singer);
             Song.set('url', data.url);
             
-            Song.save().then((song)=>{
-                let {id, attribute} = song
-                Object.assign(this.data, {id, ...attribute})
+            return Song.save().then((song)=>{
+                let {id, attributes} = song
+                Object.assign(this.data, {id, ...attributes})
             });
         }
     }
@@ -75,7 +78,11 @@
                 needs.map((string) => {
                     data[string] = this.view.$el.find(`[name="${string}"]`).val()
                 })
-                this.moudle.creat(data)
+                this.moudle.creat(data).then(()=>{
+                    this.view.reset()
+                    let data = JSON.stringify(this.moudle.data)
+                    window.eventHub.emit('creat',JSON.parse(data))
+                })
             })
         }
     }
