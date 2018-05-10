@@ -19,7 +19,17 @@
     }
     let moudle = {
         data: {
-            songs: []},
+            songs: []
+        },
+        find(){
+            let query = new AV.Query('Song');
+            return query.find().then((songs) => {
+                this.data.songs = songs.map((song) => {
+                    return {id: song.id, ...song.attributes}
+                })
+                return songs
+            });
+        },
 
     }
     let controller = {
@@ -32,10 +42,10 @@
                 this.moudle.data.songs.push(data)
                 this.view.render(this.moudle.data)
             })
+            this.moudle.find().then(() => {
+                this.view.render(this.moudle.data   )
+            })
         },
-        bindEvent(){
-           
-        }
     }
     controller.init(view, moudle)
 }
