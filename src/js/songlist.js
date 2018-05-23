@@ -19,6 +19,9 @@
         activeItem(li){
             let $li = $(li)
             $li.addClass('active').siblings('.active').removeClass('active') 
+        },
+        clearActive(){
+            $(this.el).find('li').removeClass('active')
         }
     }
     let moudle = {
@@ -46,6 +49,9 @@
             window.eventHub.on('creat', (data) => {
                 this.moudle.data.songs.push(data)
                 this.view.render(this.moudle.data)
+            })
+            window.eventHub.on('upload', (data) => {
+                this.view.clearActive()
             })
             
         },
