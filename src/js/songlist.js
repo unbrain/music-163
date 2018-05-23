@@ -8,12 +8,12 @@
             let $el = $(this.el)
             $el.html(this.template)
             let { songs, selectId } = data
-            
+
             let liList = songs.map((song) => {
                 let $li = $('<li></li>').text(song.name).attr('data-id', song.id)
                 if (song.id === selectId) { $li.addClass('active') }
                 return $li
-                
+
             })
             $el.find('ul').empty()
             liList.map((d) => {
