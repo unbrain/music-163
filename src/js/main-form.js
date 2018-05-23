@@ -67,6 +67,11 @@
                 this.view.render(data)
             })
             this.bindEvent()
+            window.eventHub.on('select', (data) => {
+                console.log(data)
+                this.view.render(data)
+            })
+            
         },
         bindEvent() {
            

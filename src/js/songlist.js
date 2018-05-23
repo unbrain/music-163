@@ -58,9 +58,17 @@
             $(this.view.el).on('click', 'li', (e) => {
                 
                 this.view.activeItem(e.currentTarget)
-                // this.moudle.selectId = e.currentTarget.getAttribute('data - id')
+                //this.moudle.selectId = e.currentTarget.getAttribute('data - id')
                 // this.view.render(this.moudle.data)
-                //window.eventHub('select', { id: songId })
+                let data = []
+                for(let song in this.moudle.data.songs){
+                    if (this.moudle.data.songs[song].id === e.currentTarget.getAttribute('data-id')){
+                        data = this.moudle.data.songs[song]
+                    }
+                }
+                
+                window.eventHub.emit('select', data)
+
             })
         }
     }
