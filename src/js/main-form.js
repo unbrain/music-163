@@ -51,7 +51,6 @@
             Song.set('name', data.name);
             Song.set('singer', data.singer);
             Song.set('url', data.url);
-            
             return Song.save().then((song)=>{
                 let {id, attributes} = song
                 Object.assign(this.data, {id, ...attributes})
@@ -64,13 +63,13 @@
             this.view.init()
             this.moudle = moudle
             this.view.render(this.moudle.data)
-
             window.eventHub.on('upload', (data) => {
                 this.view.render(data)
             })
             this.bindEvent()
         },
         bindEvent() {
+           
             this.view.$el.on('submit', 'form', (e) => {
                 e.preventDefault()
                 let needs = 'name singer url'.split(' ')

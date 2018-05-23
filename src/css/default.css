@@ -46,7 +46,10 @@ button{
     background: #1B1D20;
 }
 .page > aside > .songList-container > .songList > li:hover{
-    background: #2E3033;
+    background: rgb(182, 49, 39);
+}
+.page > aside > .songList-container > .songList > li.active{
+    background: white;
 }
 .page > aside > .upArea{
     padding: .5em;
