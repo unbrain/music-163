@@ -32,7 +32,6 @@
             if (data.id) {
                 $(this.el).prepend('<div class="songEditTitle">编辑歌曲信息</div>')
             } else {
-
                 $(this.el).prepend('<div class="songEditTitle">编辑新建歌曲信息</div>')
             }
         },
@@ -59,8 +58,6 @@
             return Song.save().then((song) => {
                 let { id, attributes } = song
                 Object.assign(this.data, { id, ...attributes })
-                // console.log('this.data')
-                // console.log(this.data)
             });
         },
         update(data) {
@@ -71,7 +68,7 @@
             song.set('url', data.url)
             console.log(song)
             return song.save().then((response) => {
-                Object.assign(this.data, data)               
+                Object.assign(this.data, data)
                 return response
             })
         },
@@ -83,7 +80,7 @@
             this.moudle = moudle
             this.view.render(this.moudle.data)
             window.eventHub.on('upload', (data) => {
-                    this.moudle.data = data
+                this.moudle.data = data
 
                 this.view.render(this.moudle.data)
             })
@@ -112,15 +109,14 @@
             needs.map((string) => {
                 data[string] = this.view.$el.find(`[name="${string}"]`).val()
             })
-            this.moudle.update(data).then(()=>{
-                
-            },(e)=>{console.log(e)})
+            this.moudle.update(data).then(() => {
+                window.eventHub.emit('update', JSON.parse(JSON.stringify(this.moudle.data)))
+            }, (e) => { console.log(e) })
         },
         bindEvent() {
             this.view.$el.on('submit', 'form', (e) => {
                 e.preventDefault()
                 if (this.moudle.data.id) {
-                    console.log(this.moudle.data.id)
                     this.update()
                 } else {
                     this.creat()
