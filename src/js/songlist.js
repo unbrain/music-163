@@ -7,13 +7,12 @@
         render(data) {
             let $el = $(this.el)
             $el.html(this.template)
-            let { songs, selectId } = data
 
+            let { songs, selectId } = data
             let liList = songs.map((song) => {
                 let $li = $('<li></li>').text(song.name).attr('data-id', song.id)
                 if (song.id === selectId) { $li.addClass('active') }
                 return $li
-
             })
             $el.find('ul').empty()
             liList.map((d) => {
@@ -43,11 +42,8 @@
         init(view, moudle) {
             this.view = view
             this.moudle = moudle
-
             this.view.render(this.moudle.data)
-
             this.getAllSongs()
-
             this.bindEvents()
 
             window.eventHub.on('creat', (data) => {
@@ -59,7 +55,6 @@
             })
             window.eventHub.on('update', (song) => {
                 let songs = this.moudle.data.songs
-
                 for (let i = 0; i < songs.length; i++) {
                     if (songs[i].id === song.id) {
                         Object.assign(songs[i], song)
